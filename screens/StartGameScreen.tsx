@@ -1,7 +1,30 @@
 import PrimaryButton from '@/components/PrimaryButton';
-import { StyleSheet, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, TextInput, View } from 'react-native';
 
-function StartGameScreen() {
+const StartGameScreen: React.FC = () => {
+  const [enteredNumber, setEnteredNumber] = useState<string>('');
+
+  function numberInputHandler(inputText: string) {
+    setEnteredNumber(inputText);
+  }
+
+  function resetInputHandler() {
+    setEnteredNumber('');
+  }
+
+  function confirmInputHandler() {
+    const chosenNumber = parseInt(enteredNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert('Invalid number!', 'Number has to be a number between 1 and 99.', [
+        { text: 'Okay', style: 'destructive', onPress: resetInputHandler },
+      ]);
+      return;
+    }
+
+    console.log('Valid number:', chosenNumber);
+  }
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
@@ -10,18 +33,20 @@ function StartGameScreen() {
         keyboardType="number-pad"
         autoCapitalize="none"
         autoCorrect={false}
+        value={enteredNumber}
+        onChangeText={numberInputHandler}
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Confirm</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
         </View>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   inputContainer: {
@@ -50,7 +75,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddb52f',
     borderBottomWidth: 2,
     color: '#ddb52f',
-    marginVertical: 8,
+    marginTop: 8,
+    marginBottom: 24,
 
     fontWeight: 'bold',
     textAlign: 'center',
