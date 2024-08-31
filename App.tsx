@@ -1,13 +1,12 @@
 import { registerRootComponent } from 'expo';
-import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+
+import StartGameScreen from './screens/StartGameScreen';
 
 function App() {
-  return (
-    <View style={{ padding: 30 }}>
-      <Text style={{ fontSize: 40 }}>Welcome to the Root Component </Text>
-    </View>
-  );
+  return <StartGameScreen />;
 }
+
+const styles = StyleSheet.create({});
 
 registerRootComponent(App);
