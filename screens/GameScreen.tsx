@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import NumberContainer from '@/components/game/NumberContainer';
 import Title from '@/components/ui/Title';
 import PrimaryButton from '@/components/ui/PrimaryButton';
+import Card from '@/components/ui/Card';
+import InstructionText from '@/components/ui/InstructionText';
 
 function generateRandomNumber(min: number, max: number, exclude: number) {
   const randomNumber = Math.floor(Math.random() * (max - min)) + min;
@@ -48,7 +51,6 @@ const GameScreen: React.FC<TGameScreenProps> = (props) => {
       minBoundary = currentGuess + 1;
     }
 
-    console.log({ minBoundary, maxBoundary });
     const newRandomNumber = generateRandomNumber(minBoundary, maxBoundary, currentGuess);
     setCurrentGuess(newRandomNumber);
   }
@@ -57,13 +59,22 @@ const GameScreen: React.FC<TGameScreenProps> = (props) => {
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{`${currentGuess}`}</NumberContainer>
-      <View>
-        <Text>Higher or lower?</Text>
-        <View>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'higher')}>+</PrimaryButton>
+      <Card>
+        <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+              <Ionicons name="remove" size={20} color="white" />
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, 'higher')}>
+              {' '}
+              <Ionicons name="add" size={20} color="white" />
+            </PrimaryButton>
+          </View>
         </View>
-      </View>
+      </Card>
 
       <View>{/* LOG ROUNDS */}</View>
     </View>
@@ -75,6 +86,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     marginTop: 32,
+  },
+  instructionText: {
+    marginBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
 

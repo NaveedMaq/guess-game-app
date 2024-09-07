@@ -3,6 +3,16 @@
   "compilerOptions": {
     "strict": true,
     "jsx": "react-native",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitThis": true,
+
     "paths": {
       "@/*": ["./*"]
     }
