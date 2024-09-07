@@ -4,7 +4,7 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 import Title from '@/components/ui/Title';
 import Colors from '@/constants/colors';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, TextInput, View } from 'react-native';
 
 type TStartGameScreenProps = {
   onPickNumber: (pickedNumber: number) => void;
