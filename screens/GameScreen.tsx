@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import NumberContainer from '@/components/game/NumberContainer';
