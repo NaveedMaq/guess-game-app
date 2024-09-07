@@ -4,9 +4,13 @@ import Colors from '@/constants/colors';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-type TGameOverScreenProps = {};
+type TGameOverScreenProps = {
+  roundsCount: number;
+  userNumber: number;
+  onStartNewGame: () => void;
+};
 
-const GameOverScreen: React.FC<TGameOverScreenProps> = () => {
+const GameOverScreen: React.FC<TGameOverScreenProps> = (props) => {
   return (
     <View style={styles.rootContainer}>
       <Title>GAME OVER!</Title>
@@ -15,11 +19,11 @@ const GameOverScreen: React.FC<TGameOverScreenProps> = () => {
       </View>
 
       <Text style={styles.summaryText}>
-        Your phone needed <Text style={styles.highlight}>X</Text> rounds to guess the number{' '}
-        <Text style={styles.highlight}>Y</Text>
+        Your phone needed <Text style={styles.highlight}>{props.roundsCount}</Text> rounds to guess the number{' '}
+        <Text style={styles.highlight}>{props.userNumber}</Text>
       </Text>
 
-      <PrimaryButton>Start New Game</PrimaryButton>
+      <PrimaryButton onPress={props.onStartNewGame}>Start New Game</PrimaryButton>
     </View>
   );
 };

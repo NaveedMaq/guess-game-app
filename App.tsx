@@ -16,6 +16,7 @@ SplashScreen.preventAutoHideAsync();
 function App() {
   const [userNumber, setUserNumber] = useState<number | undefined>(undefined);
   const [gameIsOver, setGameIsOver] = useState<boolean>(true);
+  const [guessRounds, setGuessRounds] = useState<number>(0);
 
   const [fontsLoaded, error] = useFonts({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -33,8 +34,14 @@ function App() {
     setGameIsOver(false);
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(numberOfRounds: number) {
+    setGuessRounds(numberOfRounds);
     setGameIsOver(true);
+  }
+
+  function startNewGameHandler() {
+    setUserNumber(undefined);
+    setGuessRounds(0);
   }
 
   if (!fontsLoaded && !error) {
@@ -45,7 +52,8 @@ function App() {
 
   if (userNumber) screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
 
-  if (gameIsOver && userNumber) screen = <GameOverScreen />;
+  if (gameIsOver && userNumber)
+    screen = <GameOverScreen userNumber={userNumber} roundsCount={guessRounds} onStartNewGame={startNewGameHandler} />;
 
   return (
     <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
